@@ -7,6 +7,8 @@ Welcome to our open-source DevSecOps curriculum. This comprehensive resource is 
 
 **CI/CD**, which stands for **Continuous Integration** and **Continuous Delivery/Deployment**, complements DevSecOps by automating the software delivery process. Continuous Integration refers to the practice of frequently integrating code changes into a shared repository, followed by automated testing. Continuous Delivery extends this by automatically releasing the validated changes to a repository, while Continuous Deployment goes a step further by automatically deploying the changes into production.
 
+Our [Literature Review](research/literature-review.md) provides a comprehensive look at existing academic and industry knowledge on DevSecOps.
+
 ## Why are they Important?🌟
 - **Rapid and Secure Deployment**: In a fast-paced tech environment, the ability to quickly develop and deploy software is crucial. DevSecOps and CI/CD enable this rapid deployment while maintaining high security standards.
 - **Reduced Risk**: Early integration of security in the development process significantly reduces vulnerabilities and the risk of late-stage security issues.
@@ -16,7 +18,7 @@ Welcome to our open-source DevSecOps curriculum. This comprehensive resource is 
 
 Incorporating DevSecOps and CI/CD practices into academic curricula prepares students to meet the demands of modern software engineering, making them valuable assets to the industry from the outset. 
 
-For a detailed understanding of the current market needs that our curriculum addresses, refer to our [market research](research/market-research.md).
+For a detailed understanding of the current market needs that our curriculum addresses, refer to our [Market Research](research/market-research.md).
 
 ## Why DevSecOps and CI/CD in Academia? 🎓💻
 The tech world is rapidly evolving, and with it, the requirements of the software industry are changing at an unprecedented pace. Traditional academic curricula often lag behind, particularly in areas like DevSecOps and CI/CD practices. This creates a significant skills gap for graduates entering the industry, who find themselves unprepared for the demands of modern software development and deployment. Key insights from our research highlight this disconnect:
@@ -32,6 +34,8 @@ The tech world is rapidly evolving, and with it, the requirements of the softwar
 - **Cost and Accessibility of External Resources:** Many existing online courses on cloud technologies and DevSecOps are expensive, making it difficult for students to access quality education in these areas.
 
 Our curriculum aims to fill this void by providing up-to-date, practical training in DevSecOps and CI/CD practices. By integrating our modules into existing courses, professors can enrich their curriculum, preparing students for the challenges of modern software development and making them valuable assets to the industry from day one.
+
+To understand the skills gap that new graduates face, refer to our [User Research](research/user-research.md).
 
 ## Repository Structure 🗂️
 - **Infrastructure Setup Folder**: Guides for setting up CI/CD infrastructure.
@@ -53,6 +57,9 @@ Contributions are welcome! Help us keep the curriculum relevant and effective by
 
 ## Get Started Now! 🚀
 Browse our modules and start transforming the approach to software engineering education!
+
+### References
+For all references and further reading, check our [References Document](docs/references.md).
 
 ### Questions? Contact Our Team!
 - [Sirena - sirenaak@uw.edu](mailto:sirenaak@uw.edu)
