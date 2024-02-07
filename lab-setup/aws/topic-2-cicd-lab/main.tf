@@ -59,6 +59,13 @@ resource "aws_security_group" "base" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+  ingress {
+    description      = "Artifactory"
+    from_port        = 8080
+    to_port          = 8080
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
   egress {
     from_port        = 0
     to_port          = 0
@@ -74,6 +81,19 @@ resource "aws_instance" "topic-2-lab" {
   key_name               = aws_key_pair.generated_key.key_name
   vpc_security_group_ids = [aws_security_group.base.id]
   user_data              = "${file("init_script.sh")}"
+
+  provisioner "file" {
+    connection {
+        type     = "ssh"
+        user     = "ubuntu"
+        private_key = "${file("${var.ssh_key_name}.pem")}"
+        host = "${self.public_ip}"
+        timeout = "2m"
+    }
+
+    source      = "docker-compose.yml"
+    destination = "/home/ubuntu/docker-compose.yml"
+  }
 
   tags = {
     Name = "devsecops-2"

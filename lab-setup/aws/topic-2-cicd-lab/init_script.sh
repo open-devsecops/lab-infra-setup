@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -17,6 +17,7 @@ echo \
 sudo apt-get update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+sudo docker compose -f /home/ubuntu/docker-compose.yml up -d 
 
 # Install Artifactory
 wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-key add -
@@ -25,3 +26,6 @@ sudo apt-get update && sudo apt-get -y install jfrog-artifactory-jcr
 
 # Start Atrifactory Service
 systemctl start artifactory.service
+
+
+echo "Lab Infrastructure Provisioning Complete"
