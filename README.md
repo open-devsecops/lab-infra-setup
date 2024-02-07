@@ -14,7 +14,9 @@ Welcome to our open-source DevSecOps curriculum. This comprehensive resource is 
 - **Cost-Effective**: Identifying and fixing issues early in the development cycle is less expensive than making changes after deployment. This approach saves resources and time.
 - **Competitive Advantage**: Organizations that adopt these practices are more agile, can respond faster to market changes, and offer more secure and reliable products.
 
-Incorporating DevSecOps and CI/CD practices into academic curricula prepares students to meet the demands of modern software engineering, making them valuable assets to the industry from the outset.
+Incorporating DevSecOps and CI/CD practices into academic curricula prepares students to meet the demands of modern software engineering, making them valuable assets to the industry from the outset. 
+
+For a detailed understanding of the current market needs that our curriculum addresses, refer to our [market research](research/market-research.md).
 
 ## Why DevSecOps and CI/CD in Academia? 🎓💻
 The tech world is rapidly evolving, and with it, the requirements of the software industry are changing at an unprecedented pace. Traditional academic curricula often lag behind, particularly in areas like DevSecOps and CI/CD practices. This creates a significant skills gap for graduates entering the industry, who find themselves unprepared for the demands of modern software development and deployment. Key insights from our research highlight this disconnect:
