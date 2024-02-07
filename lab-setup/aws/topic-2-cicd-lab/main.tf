@@ -44,42 +44,12 @@ resource "aws_key_pair" "generated_key" {
   }
 }
 
-resource "aws_security_group" "base" {
-  ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  ingress {
-    description      = "Artifactory"
-    from_port        = 8082
-    to_port          = 8082
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  ingress {
-    description      = "Artifactory"
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-}
-
-
 resource "aws_instance" "topic-2-lab" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.ec2_instance_type
   key_name               = aws_key_pair.generated_key.key_name
   vpc_security_group_ids = [aws_security_group.base.id]
+  # subnet_id              = aws_subnet.lab_public_subnet.id
   user_data              = "${file("init_script.sh")}"
 
   provisioner "file" {

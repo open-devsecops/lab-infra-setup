@@ -24,7 +24,7 @@ wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-k
 echo "deb https://releases.jfrog.io/artifactory/artifactory-debs jammy main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update && sudo apt-get -y install jfrog-artifactory-jcr
 
-# Start Atrifactory Service
+# Start Artifactory Service
 systemctl start artifactory.service
 
 
