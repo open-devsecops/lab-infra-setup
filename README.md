@@ -59,7 +59,7 @@ Contributions are welcome! Help us keep the curriculum relevant and effective by
 Browse our modules and start transforming the approach to software engineering education!
 
 ### References
-For all references and further reading, check our [References Document](docs/references.md).
+For all references and further reading, check our [References Document](research/references.md).
 
 ### Questions? Contact Our Team!
 - [Sirena - sirenaak@uw.edu](mailto:sirenaak@uw.edu)
