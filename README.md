@@ -3,9 +3,9 @@
 Welcome to our open-source DevSecOps curriculum. This comprehensive resource is designed to equip new graduates, companies, professors, students, and self-learners with practical skills in DevSecOps, thereby bridging the knowledge gap in its principles and practices. Our curriculum prepares students for a smooth transition from academic learning to the professional environment by focusing on real-world applications.
 
 ## What is DevSecOps and CI/CD? 🔍
-**DevSecOps** is an integration of **development** (Dev), **security** (Sec), and **operations** (Ops) practices. It's a cultural shift that emphasizes security as a fundamental part of the software development lifecycle. By introducing security early in the development process, DevSecOps ensures that it's a shared responsibility and not just an afterthought.
+**DevSecOps** is an integration of **development** (Dev), **security** (Sec), and **operations** (Ops) practices. It's a cultural shift that emphasizes security as a fundamental part of the software development lifecycle. By introducing security early in the development process, DevSecOps ensures that it's a shared responsibility and not just an afterthought.<sup>1-3</sup>
 
-**CI/CD**, which stands for **Continuous Integration** and **Continuous Delivery/Deployment**, complements DevSecOps by automating the software delivery process. Continuous Integration refers to the practice of frequently integrating code changes into a shared repository, followed by automated testing. Continuous Delivery extends this by automatically releasing the validated changes to a repository, while Continuous Deployment goes a step further by automatically deploying the changes into production.
+**CI/CD**, which stands for **Continuous Integration** and **Continuous Delivery/Deployment**, complements DevSecOps by automating the software delivery process. Continuous Integration refers to the practice of frequently integrating code changes into a shared repository, followed by automated testing. Continuous Delivery extends this by automatically releasing the validated changes to a repository, while Continuous Deployment goes a step further by automatically deploying the changes into production.<sup>4-6</sup>
 
 Our [Literature Review](research/literature-review.md) provides a comprehensive look at existing academic and industry knowledge on DevSecOps.
 
