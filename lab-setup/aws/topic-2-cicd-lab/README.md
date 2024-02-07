@@ -1,1 +1,1 @@
-# AWS Topic 2 Lab Setup Guide
+# Topic 2 Lab Setup Guide for AWS
