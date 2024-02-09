@@ -9,26 +9,20 @@ resource "aws_vpc" "lab_vpc" {
     }
 }
 
+/* Lab Public Subnet */
 resource "aws_subnet" "lab_public_subnet" {
  vpc_id     = aws_vpc.lab_vpc.id
  cidr_block = "10.0.1.0/24"
  availability_zone = var.availability_zone
+ map_public_ip_on_launch = false
  
  tags = {
    Name = "lab_pub_subnet"
  }
 }
- 
-resource "aws_subnet" "lab_private_subnet" {
-  vpc_id     = aws_vpc.lab_vpc.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = var.availability_zone
- 
-  tags = {
-    Name = "lab_priv_subnet"
-  }
-}
 
+
+## Internet Gateway
 resource "aws_internet_gateway" "igw" {
  vpc_id = aws_vpc.lab_vpc.id
  
@@ -37,6 +31,7 @@ resource "aws_internet_gateway" "igw" {
  }
 }
 
+## Route Table for Intenet Gateway
 resource "aws_route_table" "lab_public_route_table" {
  vpc_id = aws_vpc.lab_vpc.id
  
@@ -50,27 +45,16 @@ resource "aws_route_table" "lab_public_route_table" {
  }
 }
 
-resource "aws_route_table" "lab_private_route_table" {
- vpc_id = aws_vpc.lab_vpc.id
- 
- tags = {
-   Name = "lab_priv_rt"
- }
-}
-
 
 resource "aws_route_table_association" "lab_pub_sub_rt"{
     subnet_id = aws_subnet.lab_public_subnet.id
     route_table_id = aws_route_table.lab_public_route_table.id
 }
 
-resource "aws_route_table_association" "lab_priv_sub_rt"{
-    subnet_id = aws_subnet.lab_private_subnet.id
-    route_table_id = aws_route_table.lab_private_route_table.id
-}
 
-resource "aws_security_group" "base" {
-  # vpc_id = aws_vpc.lab_vpc.id
+resource "aws_security_group" "lab" {
+  vpc_id = aws_vpc.lab_vpc.id
+
   ingress {
     description      = "SSH"
     from_port        = 22
@@ -92,6 +76,7 @@ resource "aws_security_group" "base" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+
   egress {
     from_port        = 0
     to_port          = 0

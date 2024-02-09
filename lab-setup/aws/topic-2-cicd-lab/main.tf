@@ -44,26 +44,36 @@ resource "aws_key_pair" "generated_key" {
   }
 }
 
-resource "aws_instance" "topic-2-lab" {
-  ami                    = data.aws_ami.ubuntu.id
-  instance_type          = var.ec2_instance_type
-  key_name               = aws_key_pair.generated_key.key_name
-  vpc_security_group_ids = [aws_security_group.base.id]
-  # subnet_id              = aws_subnet.lab_public_subnet.id
-  user_data              = "${file("init_script.sh")}"
-
-  provisioner "file" {
-    connection {
-        type     = "ssh"
-        user     = "ubuntu"
-        private_key = "${file("${var.ssh_key_name}.pem")}"
-        host = "${self.public_ip}"
-        timeout = "2m"
-    }
-
-    source      = "docker-compose.yml"
-    destination = "/home/ubuntu/docker-compose.yml"
+data "cloudinit_config" "lab_init" {
+  part {
+    content_type = "text/cloud-config"
+    content = yamlencode({
+      write_files = [
+        {
+          encoding    = "b64"
+          content     = filebase64("${path.root}/docker-compose.yml")
+          path        = "/home/ubuntu/docker-compose.yml"
+          owner       = "root:root"
+          permissions = "0777"
+        }
+      ]
+    })
   }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = file("${path.root}/init_script.sh")
+  }
+}
+
+resource "aws_instance" "topic-2-lab" {
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.ec2_lab_instance_type
+  key_name                    = aws_key_pair.generated_key.key_name
+  vpc_security_group_ids      = [aws_security_group.lab.id]
+  subnet_id                   = aws_subnet.lab_public_subnet.id
+  user_data                   = data.cloudinit_config.lab_init.rendered
+  associate_public_ip_address = "true"
 
   tags = {
     Name = "devsecops-2"

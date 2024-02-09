@@ -1,4 +1,4 @@
-variable "ec2_instance_type" {
+variable "ec2_lab_instance_type" {
   type    = string
   default = "t3.medium"
 }
