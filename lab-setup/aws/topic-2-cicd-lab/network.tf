@@ -62,18 +62,12 @@ resource "aws_security_group" "lab" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+  
   ingress {
-    description      = "Artifactory"
-    from_port        = 8082
-    to_port          = 8082
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  ingress {
-    description      = "Jenkins"
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
+    description      = "Wireguard"
+    from_port        = var.wg_port
+    to_port          = var.wg_port
+    protocol         = "udp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 

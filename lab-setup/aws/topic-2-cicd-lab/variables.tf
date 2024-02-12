@@ -13,3 +13,18 @@ variable "availability_zone" {
  description = "Availability Zone"
  default     = "us-west-1a"
 }
+
+variable "wg_port" { 
+  type = number
+  default = 21210 
+}
+
+variable "public_iface" { 
+  type = string
+  default = "ens5" 
+}
+
+variable "vpn_network_address" {
+  type = string
+  default = "192.168.77.1/24"
+}

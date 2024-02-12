@@ -44,36 +44,22 @@ resource "aws_key_pair" "generated_key" {
   }
 }
 
-data "cloudinit_config" "lab_init" {
-  part {
-    content_type = "text/cloud-config"
-    content = yamlencode({
-      write_files = [
-        {
-          encoding    = "b64"
-          content     = filebase64("${path.root}/docker-compose.yml")
-          path        = "/home/ubuntu/docker-compose.yml"
-          owner       = "root:root"
-          permissions = "0777"
-        }
-      ]
-    })
-  }
-
-  part {
-    content_type = "text/x-shellscript"
-    content      = file("${path.root}/init_script.sh")
-  }
-}
-
 resource "aws_instance" "topic-2-lab" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.ec2_lab_instance_type
   key_name                    = aws_key_pair.generated_key.key_name
   vpc_security_group_ids      = [aws_security_group.lab.id]
   subnet_id                   = aws_subnet.lab_public_subnet.id
-  user_data                   = data.cloudinit_config.lab_init.rendered
-  associate_public_ip_address = "true"
+  
+  user_data = templatefile("cloud_init.yml.tftpl", {
+    wg_port                      = var.wg_port,
+    public_iface                 = var.public_iface,
+    vpn_network_address          = var.vpn_network_address,
+    docker_compose_b64_encoded   = filebase64("${path.root}/docker-compose.yml"),
+    init_script_b64_encoded      = filebase64("${path.root}/init_script.sh"),
+  })
+
+  associate_public_ip_address = true
 
   tags = {
     Name = "devsecops-2"
