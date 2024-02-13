@@ -17,7 +17,6 @@ write_files:
       ListenPort = ${wg_port}
       PostUp = /etc/wireguard/postup.sh
       PreDown = /etc/wireguard/predown.sh
-      SaveConfig = false
   - path: /etc/wireguard/postup.sh
     owner: root:root
     permissions: "0700"
