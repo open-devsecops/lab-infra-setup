@@ -56,6 +56,7 @@ resource "aws_instance" "topic-2-lab" {
     public_iface                 = var.public_iface,
     vpn_network_address          = var.vpn_network_address,
     docker_compose_b64_encoded   = filebase64("${path.root}/docker-compose.yml"),
+    nginx_conf_b64_encoded       = filebase64("${path.root}/nginx.conf"),
     init_script_b64_encoded      = filebase64("${path.root}/init_script.sh"),
   })
 
