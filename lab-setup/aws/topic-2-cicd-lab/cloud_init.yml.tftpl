@@ -48,6 +48,9 @@ write_files:
 
 
 runcmd:
+  # Set Environment Variables
+  - echo "AWS_ACCOUNT_ID=${aws_account_id}" >> /etc/environment
+
   # Setup local DNS resolver
   - sudo systemctl stop systemd-resolved.service
   - sudo systemctl disable systemd-resolved.service
@@ -55,7 +58,7 @@ runcmd:
   - sudo echo -e "listen-address=192.168.77.1\ncache-size=500\nneg-ttl=60\ndomain-needed\nbogus-priv\nexpand-hosts" > /etc/dnsmasq.conf
   - sudo echo "192.168.77.1 opendevsecops.internal" >> /etc/hosts
   - sudo echo "192.168.77.1 jenkins.internal" >> /etc/hosts
-  - sudo echo "192.168.77.1 artifactory.internal" >> /etc/hosts
+  - sudo echo "192.168.77.1 credentials.internal" >> /etc/hosts
   - sudo systemctl restart dnsmasq
   - sudo systemctl enable dnsmasq
 

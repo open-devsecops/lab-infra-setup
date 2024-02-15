@@ -5,12 +5,24 @@ services:
     privileged: true
     user: root
     ports:
-      - 8080:8080
-      - 50000:50000
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:50000:50000
     container_name: jenkins
     volumes:
       - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+  aws-credentials-generator-web:
+    image: taehyunnkim/aws-credentials-generator-web:latest
+    container_name: aws-credentials-generator-web
+    ports:
+      - 127.0.0.1:7777:80
+  aws-credentials-generator-server:
+    image: taehyunnkim/aws-credentials-generator-server:latest
+    container_name: aws-credentials-generator-server
+    ports:
+      - 7778:7777
+    environment:
+    - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -18,5 +30,3 @@ services:
     network_mode: "host"
     volumes:
       - /home/ubuntu/nginx.conf:/etc/nginx/conf.d/opendevsecops.conf
-    ports:
-      - 80:80

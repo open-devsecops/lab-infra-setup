@@ -50,6 +50,7 @@ resource "aws_instance" "topic-2-lab" {
   key_name                    = aws_key_pair.generated_key.key_name
   vpc_security_group_ids      = [aws_security_group.lab.id]
   subnet_id                   = aws_subnet.lab_public_subnet.id
+  iam_instance_profile        = aws_iam_instance_profile.ec2_role_profile.name
   
   user_data = templatefile("cloud_init.yml.tftpl", {
     wg_port                      = var.wg_port,
@@ -58,6 +59,7 @@ resource "aws_instance" "topic-2-lab" {
     docker_compose_b64_encoded   = filebase64("${path.root}/docker-compose.yml"),
     nginx_conf_b64_encoded       = filebase64("${path.root}/nginx.conf"),
     init_script_b64_encoded      = filebase64("${path.root}/init_script.sh"),
+    aws_account_id               = data.aws_caller_identity.current.account_id
   })
 
   associate_public_ip_address = true

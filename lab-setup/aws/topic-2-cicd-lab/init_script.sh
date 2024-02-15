@@ -19,13 +19,13 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 sudo docker compose -f /home/ubuntu/docker-compose.yml up -d 
 
-# Install Artifactory
-wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-key add -
-echo "deb https://releases.jfrog.io/artifactory/artifactory-debs jammy main" | sudo tee -a /etc/apt/sources.list
-sudo apt-get update && sudo apt-get -y install jfrog-artifactory-jcr
+# # Install Artifactory
+# wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-key add -
+# echo "deb https://releases.jfrog.io/artifactory/artifactory-debs jammy main" | sudo tee -a /etc/apt/sources.list
+# sudo apt-get update && sudo apt-get -y install jfrog-artifactory-jcr
 
-# Start Artifactory Service
-systemctl start artifactory.service
+# # Start Artifactory Service
+# systemctl start artifactory.service
 
 
 echo "Lab Infrastructure Provisioning Complete"

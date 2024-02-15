@@ -1,5 +1,5 @@
 #!/bin/bash
-public_ip="52.53.193.211"
+public_ip="13.52.247.94"
 
 echo "Generating Client's Public-Private Key pair"
 ssh -i topic-2-cicd-lab-key.pem ubuntu@${public_ip} /bin/bash << EOF
