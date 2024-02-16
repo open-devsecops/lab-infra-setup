@@ -1,5 +1,5 @@
 #!/bin/bash
-public_ip="13.52.247.94"
+public_ip="54.215.59.160"
 
 echo "Generating Client's Public-Private Key pair"
 ssh -i topic-2-cicd-lab-key.pem ubuntu@${public_ip} /bin/bash << EOF
@@ -52,5 +52,5 @@ AllowedIPs = 0.0.0.0/0
 Endpoint = ${public_ip}:21210
 EOF)
 
-echo "$client_conf" > devsecops-vpn.conf
+echo "$client_conf" > open-devsecops-vpn.conf
 echo "Done"

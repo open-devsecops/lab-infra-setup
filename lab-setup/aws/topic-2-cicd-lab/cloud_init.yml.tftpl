@@ -56,9 +56,9 @@ runcmd:
   - sudo systemctl disable systemd-resolved.service
   - sudo sed -i '1s/^/nameserver 169.254.169.253\n/' /etc/resolv.conf
   - sudo echo -e "listen-address=192.168.77.1\ncache-size=500\nneg-ttl=60\ndomain-needed\nbogus-priv\nexpand-hosts" > /etc/dnsmasq.conf
-  - sudo echo "192.168.77.1 opendevsecops.internal" >> /etc/hosts
   - sudo echo "192.168.77.1 jenkins.internal" >> /etc/hosts
-  - sudo echo "192.168.77.1 credentials.internal" >> /etc/hosts
+  - sudo echo "192.168.77.1 dashboard.internal" >> /etc/hosts
+  - sudo echo "192.168.77.1 api.internal" >> /etc/hosts
   - sudo systemctl restart dnsmasq
   - sudo systemctl enable dnsmasq
 

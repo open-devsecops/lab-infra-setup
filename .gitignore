@@ -36,4 +36,4 @@ terraform.rc
 
 *.pem
 *.terraform.lock.hcl
-*.conf
+open-devsecops-vpn.conf
