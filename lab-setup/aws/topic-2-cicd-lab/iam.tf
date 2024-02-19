@@ -77,7 +77,10 @@ resource "aws_iam_policy" "student_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
-          "ecr:CreateRepository"
+          "ecr:CreateRepository",
+          "ecr:BatchGetImage",
+          "ecr:DescribeRepositories",
+				  "ecr:DescribeRegistry"
         ],
         Resource = "*"
       },

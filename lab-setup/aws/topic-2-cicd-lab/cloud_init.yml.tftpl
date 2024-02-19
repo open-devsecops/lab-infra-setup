@@ -30,17 +30,17 @@ write_files:
     append: true
     content: |
       iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ${public_iface} -j MASQUERADE
-  - path: "/home/ubuntu/docker-compose.yml"
+  - path: "/home/ubuntu/open-devsecops/docker-compose.yml"
     encoding: "b64"
     content: ${docker_compose_b64_encoded}
     owner: "root:root"
     permission: "0777"
-  - path: "/home/ubuntu/init_script.sh"
+  - path: "/home/ubuntu/open-devsecops/init_script.sh"
     encoding: "b64"
     content: ${init_script_b64_encoded}
     owner: "root:root"
     permission: "0777"
-  - path: "/home/ubuntu/nginx.conf"
+  - path: "/home/ubuntu/open-devsecops/nginx/nginx.conf"
     encoding: "b64"
     content: ${nginx_conf_b64_encoded}
     owner: "root:root"
@@ -50,6 +50,7 @@ write_files:
 runcmd:
   # Set Environment Variables
   - echo "AWS_ACCOUNT_ID=${aws_account_id}" >> /etc/environment
+  - echo "REGION=${region}" >> /etc/environment
 
   # Setup local DNS resolver
   - sudo systemctl stop systemd-resolved.service
@@ -78,4 +79,4 @@ runcmd:
   - sudo systemctl start wg-quick@wg0.service
   
   # Execute init_script.sh to install tools
-  - sudo bash /home/ubuntu/init_script.sh
+  - sudo bash /home/ubuntu/open-devsecops/init_script.sh

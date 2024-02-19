@@ -14,6 +14,11 @@ variable "availability_zone" {
  default     = "us-west-1a"
 }
 
+variable "region" {
+ type        = string
+ default     = "us-west-1"
+}
+
 variable "wg_port" { 
   type = number
   default = 21210 

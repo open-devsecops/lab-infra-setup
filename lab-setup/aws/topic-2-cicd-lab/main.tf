@@ -59,7 +59,8 @@ resource "aws_instance" "topic-2-lab" {
     docker_compose_b64_encoded   = filebase64("${path.root}/docker-compose.yml"),
     nginx_conf_b64_encoded       = filebase64("${path.root}/nginx.conf"),
     init_script_b64_encoded      = filebase64("${path.root}/init_script.sh"),
-    aws_account_id               = data.aws_caller_identity.current.account_id
+    aws_account_id               = data.aws_caller_identity.current.account_id,
+    region                       = var.region
   })
 
   associate_public_ip_address = true

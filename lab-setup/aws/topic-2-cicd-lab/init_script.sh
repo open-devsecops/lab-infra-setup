@@ -17,7 +17,7 @@ echo \
 sudo apt-get update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-sudo docker compose -f /home/ubuntu/docker-compose.yml up -d 
+sudo docker compose -f /home/ubuntu/open-devsecops/docker-compose.yml up -d 
 
 # # Install Artifactory
 # wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-key add -

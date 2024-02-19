@@ -1,6 +1,6 @@
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: taehyunnkim/jenkins-docker-aws:latest
     restart: always
     privileged: true
     user: root
@@ -11,6 +11,9 @@ services:
     volumes:
       - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+    - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
+    - REGION=$REGION
   aws-credentials-generator-web:
     image: taehyunnkim/aws-credentials-generator-web:latest
     container_name: aws-credentials-generator-web
@@ -29,4 +32,4 @@ services:
     restart: always
     network_mode: "host"
     volumes:
-      - /home/ubuntu/nginx.conf:/etc/nginx/conf.d/opendevsecops.conf
+      - /home/ubuntu/open-devsecops/nginx/nginx.conf:/etc/nginx/conf.d/opendevsecops.conf
