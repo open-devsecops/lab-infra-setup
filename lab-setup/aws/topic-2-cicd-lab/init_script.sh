@@ -1,6 +1,18 @@
 #!/bin/bash
 set -e
 
+# Update node.js
+sudo npm install n -g
+sudo n latest
+
+# Run vpn-config-generator
+npm install pm2 -g
+git clone https://github.com/open-devsecops/vpn-config-generator.git 
+cd vpn-config-generator
+npm install
+pm2 start index.js
+cd ..
+
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get -y install ca-certificates curl

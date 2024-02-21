@@ -64,6 +64,14 @@ resource "aws_security_group" "lab" {
   }
 
   ingress {
+    description      = "VPN Config Generator"
+    from_port        = 7779
+    to_port          = 7779
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description      = "Jenkins Webhooks"
     from_port        = 8081
     to_port          = 8081
