@@ -19,7 +19,7 @@ resource "aws_iam_role" "ec2_role" {
 }
 
 resource "aws_iam_policy" "ec2_policy" {
-  name        = "ec2-policy"
+  name        = "EC2Policy"
   description = "EC2 Policy to allow assuming the Student role"
 
   policy = jsonencode({
@@ -29,7 +29,23 @@ resource "aws_iam_policy" "ec2_policy" {
         Effect = "Allow",
         Action = "sts:AssumeRole"
         Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/StudentRole"
-      }
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:PutImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:CreateRepository",
+          "ecr:BatchGetImage",
+          "ecr:DescribeRepositories",
+				  "ecr:DescribeRegistry",
+        ],
+        Resource = "*"
+      },
     ]
   })
 }
@@ -80,7 +96,7 @@ resource "aws_iam_policy" "student_policy" {
           "ecr:CreateRepository",
           "ecr:BatchGetImage",
           "ecr:DescribeRepositories",
-				  "ecr:DescribeRegistry"
+				  "ecr:DescribeRegistry",
         ],
         Resource = "*"
       },
