@@ -26,6 +26,7 @@ services:
       - 7778:7777
     environment:
     - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
+    - REGION=$REGION
   nginx:
     image: nginx:latest
     container_name: nginx
