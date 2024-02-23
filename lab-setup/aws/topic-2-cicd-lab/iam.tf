@@ -43,6 +43,7 @@ resource "aws_iam_policy" "ec2_policy" {
           "ecr:BatchGetImage",
           "ecr:DescribeRepositories",
 				  "ecr:DescribeRegistry",
+          "ecr:GetDownloadUrlForLayer"
         ],
         Resource = "*"
       },
@@ -97,6 +98,7 @@ resource "aws_iam_policy" "student_policy" {
           "ecr:BatchGetImage",
           "ecr:DescribeRepositories",
 				  "ecr:DescribeRegistry",
+          "ecr:GetDownloadUrlForLayer"
         ],
         Resource = "*"
       },

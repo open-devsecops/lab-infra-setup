@@ -67,5 +67,5 @@ resource "aws_instance" "topic-2-lab" {
 
   tags = {
     Name = "devsecops-2"
-  }
+  } 
 }
