@@ -15,12 +15,12 @@ services:
     - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
     - REGION=$REGION
   aws-credentials-generator-web:
-    image: taehyunnkim/aws-credentials-generator-web:latest
+    image: taehyunnkim/odso-dashboard-app-cli:latest
     container_name: aws-credentials-generator-web
     ports:
       - 127.0.0.1:7777:80
   aws-credentials-generator-server:
-    image: taehyunnkim/aws-credentials-generator-server:latest
+    image: taehyunnkim/odso-dashboard-app-api:latest
     container_name: aws-credentials-generator-server
     ports:
       - 7778:7777
