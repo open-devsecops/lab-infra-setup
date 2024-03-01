@@ -38,6 +38,7 @@ resource "aws_key_pair" "generated_key" {
 
   provisioner "local-exec" {
     command = <<-EOT
+      rm ./'${var.ssh_key_name}'.pem 2> /dev/null
       echo '${tls_private_key.key.private_key_pem}' > ./'${var.ssh_key_name}'.pem
       chmod 400 ./'${var.ssh_key_name}'.pem
     EOT
