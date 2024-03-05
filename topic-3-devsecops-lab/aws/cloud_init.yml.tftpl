@@ -1,0 +1,85 @@
+#cloud-config
+
+# Install required packages
+packages:
+ - wireguard
+ - net-tools
+ - iptables
+ - dnsmasq
+ - npm
+ - openjdk-17-jdk
+ - unzip
+
+write_files:
+  - path: /etc/wireguard/wg0.conf
+    owner: root:root
+    permissions: "0600"
+    content: |
+      [Interface]
+      PrivateKey = WG_SRV_PRIV_KEY
+      Address = ${vpn_network_address}
+      ListenPort = ${wg_port}
+      PostUp = /etc/wireguard/postup.sh
+      PreDown = /etc/wireguard/predown.sh
+  - path: /etc/wireguard/postup.sh
+    owner: root:root
+    permissions: "0700"
+    append: true
+    content: |
+      iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ${public_iface} -j MASQUERADE
+  - path: /etc/wireguard/predown.sh
+    owner: root:root
+    permissions: "0700"
+    append: true
+    content: |
+      iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ${public_iface} -j MASQUERADE
+  - path: "/home/ubuntu/open-devsecops/docker-compose.yml"
+    encoding: "b64"
+    content: ${docker_compose_b64_encoded}
+    owner: "root:root"
+    permission: "0777"
+  - path: "/home/ubuntu/open-devsecops/init_script.sh"
+    encoding: "b64"
+    content: ${init_script_b64_encoded}
+    owner: "root:root"
+    permission: "0777"
+  - path: "/home/ubuntu/open-devsecops/nginx/nginx.conf"
+    encoding: "b64"
+    content: ${nginx_conf_b64_encoded}
+    owner: "root:root"
+    permission: "0777"
+
+
+runcmd:
+  # Set Environment Variables
+  - echo "AWS_ACCOUNT_ID=${aws_account_id}" >> /etc/environment
+  - echo "REGION=${region}" >> /etc/environment
+
+  # Setup local DNS resolver
+  - sudo systemctl stop systemd-resolved.service
+  - sudo systemctl disable systemd-resolved.service
+  - sudo sed -i '1s/^/nameserver 169.254.169.253\n/' /etc/resolv.conf
+  - sudo echo -e "listen-address=192.168.77.1\ncache-size=500\nneg-ttl=60\ndomain-needed\nbogus-priv\nexpand-hosts" > /etc/dnsmasq.conf
+  - sudo echo "192.168.77.1 jenkins.internal" >> /etc/hosts
+  - sudo echo "192.168.77.1 dashboard.internal" >> /etc/hosts
+  - sudo echo "192.168.77.1 api.internal" >> /etc/hosts
+  - sudo systemctl restart dnsmasq
+  - sudo systemctl enable dnsmasq
+
+  # Setup Wireguard
+  ## - Enable IP Forwarding
+  - sudo bash -c "echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf && sysctl -p"
+
+  ## - Generate Wireguard Server Private Key
+  - sudo bash -c "wg genkey > /etc/wireguard/private.key && chmod go= /etc/wireguard/private.key"
+  ## - Insert Server's Private Key into Wireguard configuration file
+  - sudo bash -c "sed -i "s@WG_SRV_PRIV_KEY@$(cat /etc/wireguard/private.key)@g" /etc/wireguard/wg0.conf"
+  ## - Generate Server's Public Key
+  - sudo bash -c "cat /etc/wireguard/private.key | wg pubkey > /etc/wireguard/public.key && chmod go= /etc/wireguard/public.key"
+
+  ## - Enable and start Wireguard service
+  - sudo systemctl enable wg-quick@wg0.service
+  - sudo systemctl start wg-quick@wg0.service
+  
+  # Execute init_script.sh to install tools
+  - sudo bash /home/ubuntu/open-devsecops/init_script.sh
