@@ -52,6 +52,10 @@ resource "aws_instance" "topic-2-lab" {
   vpc_security_group_ids      = [aws_security_group.lab.id]
   subnet_id                   = aws_subnet.lab_public_subnet.id
   iam_instance_profile        = aws_iam_instance_profile.ec2_role_profile.name
+
+  root_block_device {
+    volume_size = var.ec2_block_size
+  }
   
   user_data = templatefile("cloud_init.yml.tftpl", {
     wg_port                      = var.wg_port,

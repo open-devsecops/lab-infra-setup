@@ -52,6 +52,7 @@ EOF
 echo "***** Installing SonarQube *****" 
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.1.88267.zip
 unzip sonarqube-10.4.1.88267.zip
+rm sonarqube-10.4.1.88267.zip
 mv sonarqube-10.4.1.88267 sonarqube
 mv sonarqube /opt
 
@@ -84,7 +85,7 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl enable sonarqube
-sudo systemctl start sonarqube
+sudo systemctl restart sonarqube
 
 # Install Trivy
 sudo apt-get install -y wget apt-transport-https gnupg lsb-release

@@ -62,6 +62,7 @@ runcmd:
   - sudo echo -e "listen-address=192.168.77.1\ncache-size=500\nneg-ttl=60\ndomain-needed\nbogus-priv\nexpand-hosts" > /etc/dnsmasq.conf
   - sudo echo "192.168.77.1 jenkins.internal" >> /etc/hosts
   - sudo echo "192.168.77.1 dashboard.internal" >> /etc/hosts
+    - sudo echo "192.168.77.1 sonarqube.internal" >> /etc/hosts
   - sudo echo "192.168.77.1 api.internal" >> /etc/hosts
   - sudo systemctl restart dnsmasq
   - sudo systemctl enable dnsmasq

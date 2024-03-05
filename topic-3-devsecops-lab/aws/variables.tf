@@ -1,6 +1,11 @@
 variable "ec2_lab_instance_type" {
   type    = string
-  default = "t3.medium"
+  default = "t3.large"
+}
+
+variable "ec2_block_size" {
+  type    = number
+  default = 30
 }
 
 variable "ssh_key_name" {
