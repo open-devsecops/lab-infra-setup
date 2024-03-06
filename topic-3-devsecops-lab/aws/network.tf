@@ -64,9 +64,9 @@ resource "aws_security_group" "lab" {
   }
 
   ingress {
-    description      = "VPN Config Generator"
-    from_port        = 7779
-    to_port          = 7779
+    description      = "HTTPS"
+    from_port        = 443
+    to_port          = 443
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }

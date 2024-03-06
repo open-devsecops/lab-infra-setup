@@ -45,7 +45,7 @@ resource "aws_key_pair" "generated_key" {
   }
 }
 
-resource "aws_instance" "topic-2-lab" {
+resource "aws_instance" "topic-3-lab" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.ec2_lab_instance_type
   key_name                    = aws_key_pair.generated_key.key_name
@@ -61,9 +61,11 @@ resource "aws_instance" "topic-2-lab" {
     wg_port                      = var.wg_port,
     public_iface                 = var.public_iface,
     vpn_network_address          = var.vpn_network_address,
-    docker_compose_b64_encoded   = filebase64("${path.root}/docker-compose.yml"),
-    nginx_conf_b64_encoded       = filebase64("${path.root}/nginx.conf"),
-    init_script_b64_encoded      = filebase64("${path.root}/init_script.sh"),
+    docker_compose_b64_encoded   = filebase64("${path.root}/uploads/docker-compose.yml"),
+    nginx_conf_b64_encoded       = filebase64("${path.root}/uploads/nginx.conf"),
+    setup_nginx_conf_b64_encoded = filebase64("${path.root}/uploads/setup_nginx.conf"),
+    init_script_b64_encoded      = filebase64("${path.root}/uploads/init_script.sh"),
+    setting_up_page_b64_encoded  = filebase64("${path.root}/uploads/index.html"),
     aws_account_id               = data.aws_caller_identity.current.account_id,
     region                       = var.region
   })

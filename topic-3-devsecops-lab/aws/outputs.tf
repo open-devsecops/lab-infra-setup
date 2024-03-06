@@ -1,5 +1,5 @@
 output "next_steps" {
-  value = "Please refer to https://github.com/taehyunnkim/open-devsecops/tree/main/lab-setup/aws/topic-2-cicd-lab"
+  value = "Please refer to https://github.com/open-devsecops/lab-infra-setup/tree/main/topic-3-devsecops-lab/aws"
 }
 
 output "please_note" {
@@ -11,10 +11,10 @@ output "please_note" {
 }
 
 output "SSH" {
-  value = "ssh -i ${var.ssh_key_name}.pem ubuntu@${aws_instance.topic-2-lab.public_ip}"
+  value = "ssh -i ${var.ssh_key_name}.pem ubuntu@${aws_instance.topic-3-lab.public_ip}"
 }
 
 output "ec2_public_ip" {
-  value = aws_instance.topic-2-lab.public_ip
+  value = aws_instance.topic-3-lab.public_ip
   description = "The public IP address of the EC2 instance."
 }
