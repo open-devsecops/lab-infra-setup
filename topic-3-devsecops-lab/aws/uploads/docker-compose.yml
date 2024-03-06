@@ -1,6 +1,6 @@
 services:
   jenkins:
-    image: taehyunnkim/jenkins-docker-aws:latest
+    image: taehyunnkim/odso-jenkins-topic-3:latest
     restart: always
     privileged: true
     user: root
