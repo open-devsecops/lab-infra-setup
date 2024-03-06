@@ -2,11 +2,7 @@
 
 # Install required packages
 packages:
- - wireguard
- - net-tools
- - iptables
- - dnsmasq
- - npm
+ - nginx
 
 write_files:
   - path: /etc/wireguard/wg0.conf
@@ -41,9 +37,19 @@ write_files:
     content: ${init_script_b64_encoded}
     owner: "root:root"
     permission: "0777"
+  - path: "/var/www/html/index.html"
+    encoding: "b64"
+    content: ${setting_up_page_b64_encoded}
+    owner: "root:root"
+    permission: "0644"
   - path: "/home/ubuntu/open-devsecops/nginx/nginx.conf"
     encoding: "b64"
     content: ${nginx_conf_b64_encoded}
+    owner: "root:root"
+    permission: "0777"
+  - path: "/home/ubuntu/open-devsecops/nginx/setup_nginx.conf"
+    encoding: "b64"
+    content: ${setup_nginx_conf_b64_encoded}
     owner: "root:root"
     permission: "0777"
 
@@ -52,6 +58,18 @@ runcmd:
   # Set Environment Variables
   - echo "AWS_ACCOUNT_ID=${aws_account_id}" >> /etc/environment
   - echo "REGION=${region}" >> /etc/environment
+  - export PUBLIC_IP="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
+
+  # Set up self-signed certificates
+  - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/C=US/ST=/L=/O=open-devsecops/OU=/CN=$PUBLIC_IP"
+
+  # Setup Nginx
+  - sudo rm /etc/nginx/sites-enabled/default
+  - sudo mv /home/ubuntu/open-devsecops/nginx/setup_nginx.conf /etc/nginx/conf.d/setup_opendevsecops.conf
+  - sudo systemctl restart nginx
+
+  # Install Packages
+  - sudo apt-get install -y wireguard net-tools iptables dnsmasq npm
 
   # Setup local DNS resolver
   - sudo systemctl stop systemd-resolved.service

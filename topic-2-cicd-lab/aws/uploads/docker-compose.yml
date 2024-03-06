@@ -27,10 +27,3 @@ services:
     environment:
     - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
     - REGION=$REGION
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    restart: always
-    network_mode: "host"
-    volumes:
-      - /home/ubuntu/open-devsecops/nginx/nginx.conf:/etc/nginx/conf.d/opendevsecops.conf
