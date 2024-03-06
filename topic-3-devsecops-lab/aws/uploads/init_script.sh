@@ -39,7 +39,7 @@ sudo apt-get install -y postgresql
 sudo systemctl enable postgresql
 sudo systemctl start postgresql
 
-# Install SonarQube
+# Install SonarQube Server
 
 ## Configure Postgres
 echo "***** Configuring Postgres for SonarQube *****" 
@@ -86,13 +86,6 @@ EOF
 
 sudo systemctl enable sonarqube
 sudo systemctl restart sonarqube
-
-# Install Trivy
-sudo apt-get install -y wget apt-transport-https gnupg lsb-release
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-sudo apt-get update
-sudo apt-get install -y trivy
 
 # Replace Nginx config
 sudo mv /home/ubuntu/open-devsecops/nginx/nginx.conf /etc/nginx/conf.d/opendevsecops.conf

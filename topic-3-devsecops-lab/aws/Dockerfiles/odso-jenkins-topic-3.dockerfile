@@ -23,3 +23,10 @@ RUN ./aws/install
 RUN curl "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006.zip" -o "sonar-scanner.zip"
 RUN unzip sonar-scanner.zip
 RUN mv sonar-scanner-5.0.1.3006 /opt/sonar-scanner
+
+# Install Trivy
+RUN apt-get install -y wget apt-transport-https gnupg lsb-release
+RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+RUN echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
+RUN apt-get update
+RUN apt-get install -y trivy
