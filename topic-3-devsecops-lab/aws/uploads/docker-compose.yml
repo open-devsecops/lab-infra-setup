@@ -4,9 +4,7 @@ services:
     restart: always
     privileged: true
     user: root
-    ports:
-      - 8080:8080
-      - 127.0.0.1:50000:50000
+    network_mode: "host"
     container_name: jenkins
     volumes:
       - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
