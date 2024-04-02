@@ -37,3 +37,5 @@ terraform.rc
 *.pem
 *.terraform.lock.hcl
 open-devsecops-vpn.conf
+
+.DS_Store
