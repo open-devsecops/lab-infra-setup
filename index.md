@@ -6,4 +6,4 @@ has_toc: false
 nav_order: 5
 ---
 
-# Lab Infrastructure Setup Guide
+# Lab Infrastructure Setup Guide!
