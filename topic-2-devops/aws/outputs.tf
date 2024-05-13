@@ -1,7 +1,3 @@
-output "next_steps" {
-  value = "Please refer to https://github.com/taehyunnkim/open-devsecops/tree/main/lab-setup/aws/topic-2-cicd-lab"
-}
-
 output "please_note" {
   value = [
     "Tool installation could take several minutes to complete.",
