@@ -1,5 +1,5 @@
 output "next_steps" {
-  value = "Please refer to https://github.com/open-devsecops/lab-infra-setup/tree/main/topic-3-devsecops-lab/aws"
+  value = "Please refer to https://open-devsecops.github.io/docs/lab-setup-guide/topic-3-devsecops-lab/aws/#accessing-internal-services"
 }
 
 output "please_note" {

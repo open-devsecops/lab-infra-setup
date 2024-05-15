@@ -92,4 +92,10 @@ sudo mv /home/ubuntu/open-devsecops/nginx/nginx.conf /etc/nginx/conf.d/opendevse
 sudo rm /etc/nginx/conf.d/setup_opendevsecops.conf
 sudo systemctl restart nginx
 
+# Install Mongo Shell
+wget -qO- https://www.mongodb.org/static/pgp/server-7.0.asc | sudo tee /etc/apt/trusted.gpg.d/server-7.0.asc
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-mongosh
+
 echo "Lab Infrastructure Provisioning Complete"

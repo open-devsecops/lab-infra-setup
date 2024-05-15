@@ -12,6 +12,8 @@ services:
     environment:
     - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
     - REGION=$REGION
+    - DB_USERNAME=$DB_USERNAME
+    - DB_PASSWORD=$DB_PASSWORD
   aws-credentials-generator-web:
     image: taehyunnkim/odso-dashboard-app-cli:latest
     container_name: aws-credentials-generator-web
@@ -25,3 +27,10 @@ services:
     environment:
     - AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID
     - REGION=$REGION
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=$DB_USERNAME
+    - MONGO_INITDB_ROOT_PASSWORD=$DB_PASSWORD

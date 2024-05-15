@@ -56,9 +56,16 @@ write_files:
 
 runcmd:
   # Set Environment Variables
+  - export PUBLIC_IP="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
+  - export DB_USERNAME=admin
+  - export DB_PASSWORD=securedatabasepassword1!
+
   - echo "AWS_ACCOUNT_ID=${aws_account_id}" >> /etc/environment
   - echo "REGION=${region}" >> /etc/environment
-  - export PUBLIC_IP="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
+  - echo "DB_USERNAME=$DB_USERNAME" >> /etc/environment
+  - echo "DB_PASSWORD=$DB_PASSWORD" >> /etc/environment
+  - echo "DB_URI=mongodb://$DB_USERNAME:$DB_PASSWORD@mongo:27017/open-devsecops" >> /etc/environment
+  - echo "PUBLIC_IP=$PUBLIC_IP" >> /etc/environment
 
   # Set up self-signed certificates
   - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/C=US/ST=/L=/O=open-devsecops/OU=/CN=$PUBLIC_IP"
